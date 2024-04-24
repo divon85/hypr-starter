@@ -1,3 +1,7 @@
+#!/bin/bash
+version=$(cat .version/name)
+clear
+
 source .install/colors.sh
 source .install/library.sh
 source .install/required.sh
