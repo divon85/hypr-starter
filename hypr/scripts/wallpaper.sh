@@ -4,7 +4,7 @@
 cache_file="$HOME/.cache/current_wallpaper"
 blurred="$HOME/.cache/blurred_wallpaper.png"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
-blur_file="$HOME/dotfiles/.settings/blur.sh"
+blur_file="$HOME/.dotfiles/.settings/blur.sh"
 
 blur="50x30"
 blur=$(cat $blur_file)
@@ -79,14 +79,14 @@ transition_type="wipe"
 # transition_type="outer"
 # transition_type="random"
 
-wallpaper_engine=$(cat $HOME/dotfiles/.settings/wallpaper-engine.sh)
+wallpaper_engine=$(cat $HOME/.dotfiles/.settings/wallpaper-engine.sh)
 if [ "$wallpaper_engine" == "hyprpaper" ] ;then
     # hyprpaper
     echo ":: Using hyprpaper"
     killall hyprpaper
-    wal_tpl=$(cat $HOME/dotfiles/.settings/hyprpaper.tpl)
+    wal_tpl=$(cat $HOME/.dotfiles/.settings/hyprpaper.tpl)
     output=${wal_tpl//WALLPAPER/$wallpaper}
-    echo "$output" > $HOME/dotfiles/hypr/hyprpaper.conf
+    echo "$output" > $HOME/.dotfiles/hypr/hyprpaper.conf
     hyprpaper &
 else
     echo ":: Wallpaper Engine disabled"
