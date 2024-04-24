@@ -17,7 +17,7 @@ sleep 0.2
 # ----------------------------------------------------- 
 # Default theme: /THEMEFOLDER;/VARIATION
 # ----------------------------------------------------- 
-themestyle="/mine;/mine/colored"
+themestyle="/mine_regular;/mine_regular/colored"
 
 # ----------------------------------------------------- 
 # Get current theme information from .cache/.themestyle.sh
