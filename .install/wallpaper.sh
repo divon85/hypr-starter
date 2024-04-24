@@ -3,10 +3,10 @@
 # ------------------------------------------------------
 echo -e "${GREEN}"
 figlet "Wallpapers"
-echo -e "${NONE}"
-if [ ! -d ~/Pictures]; then
+if [ ! -d ~/Pictures ]; then
     mkdir ~/Pictures
 fi
+echo -e "${NONE}"
 if [ -d ~/Pictures/wallpaper/ ]; then
     echo "wallpaper folder already exists."
 else
@@ -14,8 +14,6 @@ else
 fi
 cp wallpapers/* ~/Pictures/wallpaper
 echo "Default wallpapers installed successfully."
-fi
-echo ""
 
 # ------------------------------------------------------
 # Copy default wallpaper files to .cache
