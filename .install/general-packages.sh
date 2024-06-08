@@ -67,7 +67,7 @@ packagesYay=(
     "bibata-cursor-theme"
     "trizen"
     "pacseek"
-    "rofi-lbonn-wayland"
+    "rofi-wayland"
     "google-chrome"
     "visual-studio-code-bin"
     "wlogout"
