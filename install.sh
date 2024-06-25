@@ -20,8 +20,8 @@ source .install/preparation.sh
 source .install/installer.sh
 source .install/remove.sh
 source .install/general.sh
-source .install/general-packages.sh
-source .install/packages/install-packages.sh
+source .install/packages/general-packages.sh
+source .install/install-packages.sh
 source .install/profile.sh
 if [[ $profile == *"Hyprland"* ]]; then
     echo -e "${GREEN}"
