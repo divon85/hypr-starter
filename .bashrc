@@ -52,22 +52,6 @@ alias gcheck="git checkout"
 alias gcredential="git config credential.helper store"
 
 # -----------------------------------------------------
-# SCRIPTS
-# -----------------------------------------------------
-
-alias gr='python ~/.dotfiles/scripts/growthrate.py'
-alias ChatGPT='python ~/mychatgpt/mychatgpt.py'
-alias chat='python ~/mychatgpt/mychatgpt.py'
-alias ascii='~/.dotfiles/scripts/figlet.sh'
-
-# -----------------------------------------------------
-# VIRTUAL MACHINE
-# -----------------------------------------------------
-
-alias vm='~/private/launchvm.sh'
-alias lg='~/.dotfiles/scripts/looking-glass.sh'
-
-# -----------------------------------------------------
 # EDIT CONFIG FILES
 # -----------------------------------------------------
 
@@ -76,10 +60,10 @@ alias confp='$EDITOR ~/.dotfiles/picom/picom.conf'
 alias confb='$EDITOR ~/.dotfiles/.bashrc'
 
 # -----------------------------------------------------
-# EDIT NOTES
+# EMACS
 # -----------------------------------------------------
 
-alias notes='$EDITOR ~/notes.txt'
+export PATH="$HOME/.config/emacs/bin:$PATH"
 
 # -----------------------------------------------------
 # SYSTEM
@@ -104,12 +88,12 @@ eval "$(starship init bash)"
 cat ~/.cache/wal/sequences
 
 # -----------------------------------------------------
-# PFETCH if on wm
+# Fastfetch if on wm
 # -----------------------------------------------------
-echo ""
 if [[ $(tty) == *"pts"* ]]; then
-    pfetch
+    fastfetch --config examples/13
 else
+    echo
     if [ -f /bin/qtile ]; then
         echo "Start Qtile X11 with command Qtile"
     fi

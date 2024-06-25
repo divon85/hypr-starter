@@ -25,7 +25,7 @@ fi
 if [ "$setkeyboard" == "0" ] ;then
 
     # Default layout and variants
-    keyboard_layout="us"
+    keyboard_layout="jp"
     keyboard_variant=""
 
     _setupKeyboardLayout() {

@@ -1,3 +1,14 @@
+#!/bin/bash
+#  _     _ _                           
+# | |   (_) |__  _ __ __ _ _ __ _   _  
+# | |   | | '_ \| '__/ _` | '__| | | | 
+# | |___| | |_) | | | (_| | |  | |_| | 
+# |_____|_|_.__/|_|  \__,_|_|   \__, | 
+#                               |___/  
+#  
+# by Stephan Raabe (2023) 
+# ----------------------------------------------------- 
+
 # ------------------------------------------------------
 # Function: Is package installed
 # ------------------------------------------------------
@@ -260,5 +271,27 @@ _replaceLineInFile() {
     else
         echo "ERROR: Target file not found."
         sleep 2
+    fi
+}
+
+# ------------------------------------------------------
+# System check
+# ------------------------------------------------------
+
+_commandExists() {
+    package="$1";
+    if ! type $package > /dev/null 2>&1; then
+        echo ":: ERROR: $package doesn't exists. Please install it with yay -S $2"
+    else
+        echo ":: OK: $package command found."
+    fi
+}
+
+_folderExists() {
+    folder="$1";
+    if [ ! -d $folder ]; then
+        echo ":: ERROR: $folder doesn't exists. $2"
+    else
+        echo ":: OK: $folder found."
     fi
 }
