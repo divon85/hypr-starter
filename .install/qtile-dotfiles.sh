@@ -8,10 +8,8 @@ fi
 if [ -d ~/.dotfiles-versions/$version/vim ]; then
     _installSymLink vim ~/.config/vim ~/.dotfiles/vim/ ~/.config
 fi
-if [ $neovim == "1" ] ;then
-    if [ -d ~/.dotfiles-versions/$version/nvim ]; then
-        _installSymLink nvim ~/.config/nvim ~/.dotfiles/nvim/ ~/.config
-    fi
+if [ -d ~/.dotfiles-versions/$version/nvim ]; then
+    _installSymLink nvim ~/.config/nvim ~/.dotfiles/nvim/ ~/.config
 fi
 if [ -d ~/.dotfiles-versions/$version/starship ]; then
     _installSymLink starship ~/.config/starship.toml ~/.dotfiles/starship/starship.toml ~/.config/starship.toml
@@ -22,26 +20,19 @@ fi
 if [ -d ~/.dotfiles-versions/$version/dunst ]; then
     _installSymLink dunst ~/.config/dunst ~/.dotfiles/dunst/ ~/.config
 fi
-if [ -d ~/.dotfiles-versions/$version/hypr ]; then
-    _installSymLink hypr ~/.config/hypr ~/.dotfiles/hypr/ ~/.config
+if [ -d ~/.dotfiles-versions/$version/qtile ]; then
+    _installSymLink qtile ~/.config/qtile ~/.dotfiles/qtile/ ~/.config
 fi
-if [ -d ~/.dotfiles-versions/$version/waybar ]; then
-    _installSymLink waybar ~/.config/waybar ~/.dotfiles/waybar/ ~/.config
+if [ -d ~/.dotfiles-versions/$version/picom ]; then
+    _installSymLink picom ~/.config/picom ~/.dotfiles/picom/ ~/.config
+fi
+if [ -d ~/.dotfiles-versions/$version/qtile ]; then
+    _installSymLink .xinitrc ~/.xinitrc ~/.dotfiles/qtile/.xinitrc ~/.xinitrc
 fi
 if [ -d ~/.dotfiles-versions/$version/swaylock ]; then
     _installSymLink swaylock ~/.config/swaylock ~/.dotfiles/swaylock/ ~/.config
 fi
-if [ -d ~/.dotfiles-versions/$version/wlogout ]; then
-    _installSymLink wlogout ~/.config/wlogout ~/.dotfiles/wlogout/ ~/.config
-fi
 if [ -d ~/.dotfiles-versions/$version/swappy ]; then
     _installSymLink swappy ~/.config/swappy ~/.dotfiles/swappy/ ~/.config
 fi
-if [ -d ~/.dotfiles-versions/$version/eww ]; then
-    _installSymLink eww ~/.config/eww ~/.dotfiles/eww/ ~/.config
-fi
-if [ -d ~/.dotfiles-versions/$version/fastfetch ]; then
-    _installSymLink fastfetch ~/.config/fastfetch ~/.dotfiles/fastfetch/ ~/.config
-fi
 echo ":: Symbolic links created."
-echo

@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # My screen resolution
 # xrandr --rate 120
 
