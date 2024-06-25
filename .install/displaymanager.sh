@@ -66,6 +66,7 @@ if [ "$dmsel" == "Install sddm and theme" ] ;then
     disman=0
     # Try to force the installation of sddm
     echo ":: Install sddm"
+    sudo pacman -S --needed qt5‑graphicaleffects qt5‑quickcontrols2 qt5‑svg
     yay -S --noconfirm sddm --ask 4
 
     # Enable sddm
