@@ -1,135 +1,134 @@
 #!/bin/bash
 
-# Cache file for holding the current wallpaper
+# ----------------------------------------------------- 
+# Get selected wallpaper
+# ----------------------------------------------------- 
+echo ":: Using wallpaper $1"
+wallpaper=$1
+
+# ----------------------------------------------------- 
+# Check to use wallpaper cache
+# ----------------------------------------------------- 
+use_cache=0
+if [ -f $HOME/.dotfiles/.settings/wallpaper_cache ] ;then
+    use_cache=1
+fi
+
+if [ "$use_cache" == "1" ] ;then
+    echo ":: Using Wallpaper Cache"
+else
+    echo ":: Wallpaper Cache disabled"
+fi
+
+# ----------------------------------------------------- 
+# File and folder names
+# ----------------------------------------------------- 
+force_generate=0
+generated_versions="$HOME/.cache/ml4w-wallpaper-generated"
 cache_file="$HOME/.cache/current_wallpaper"
-blurred="$HOME/.cache/blurred_wallpaper.png"
+blurred_wallpaper="$HOME/.cache/blurred_wallpaper.png"
+square_wallpaper="$HOME/.cache/square_wallpaper.png"
 rasi_file="$HOME/.cache/current_wallpaper.rasi"
 blur_file="$HOME/.dotfiles/.settings/blur.sh"
 
 blur="50x30"
 blur=$(cat $blur_file)
 
-# Create cache file if not exists
-if [ ! -f $cache_file ] ;then
-    touch $cache_file
-    echo "$HOME/Pictures/wallpaper/default.jpg" > "$cache_file"
-fi
-
 # Create rasi file if not exists
 if [ ! -f $rasi_file ] ;then
     touch $rasi_file
-    echo "* { current-image: url(\"$HOME/Pictures/wallpaper/default.jpg\", height); }" > "$rasi_file"
+    echo "* { current-image: url(\"$wallpaper_folder/default.jpg\", height); }" > "$rasi_file"
 fi
 
-current_wallpaper=$(cat "$cache_file")
-
-case $1 in
-
-    # Load wallpaper from .cache of last session 
-    "init")
-        sleep 1
-        if [ -f $cache_file ]; then
-            wal -q -i $current_wallpaper
-        else
-            wal -q -i ~/Pictures/wallpaper/
-        fi
-    ;;
-
-    # Select wallpaper with rofi
-    "select")
-        sleep 0.2
-        selected=$( find "$HOME/Pictures/wallpaper" -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" \) -exec basename {} \; | sort -R | while read rfile
-        do
-            echo -en "$rfile\x00icon\x1f$HOME/Pictures/wallpaper/${rfile}\n"
-        done | rofi -dmenu -i -replace -config ~/.dotfiles/rofi/config-wallpaper.rasi)
-        if [ ! "$selected" ]; then
-            echo "No wallpaper selected"
-            exit
-        fi
-        wal -q -i ~/Pictures/wallpaper/$selected
-    ;;
-
-    # Randomly select wallpaper 
-    *)
-        wal -q -i ~/Pictures/wallpaper/
-    ;;
-
-esac
+# Create folder with generated versions of wallpaper if not exists
+if [ ! -d $generated_versions ] ;then
+    mkdir $generated_versions
+fi
 
 # ----------------------------------------------------- 
-# Load current pywal color scheme
+# Current wallpaper
 # ----------------------------------------------------- 
+current_wallpaper=$wallpaper
+current_wallpaper_filename=$(basename $current_wallpaper)
+echo ":: Current Wallpaper: $current_wallpaper"
+echo ":: Current Wallpaper Filename: $current_wallpaper_filename"
+newwall=$current_wallpaper_filename
+
+# ----------------------------------------------------- 
+# Execute pywal
+# ----------------------------------------------------- 
+echo ":: Execute wallpaper"
+wal -q -i $wallpaper
 source "$HOME/.cache/wal/colors.sh"
-echo ":: Wallpaper: $wallpaper"
 
 # ----------------------------------------------------- 
-# get wallpaper image name
-# ----------------------------------------------------- 
-newwall=$(echo $wallpaper | sed "s|$HOME/Pictures/wallpaper/||g")
-
-# ----------------------------------------------------- 
-# Reload waybar with new colors
+# Wallpaper Effects
 # -----------------------------------------------------
-~/.dotfiles/waybar/launch.sh
 
-# ----------------------------------------------------- 
-# Set the new wallpaper
-# -----------------------------------------------------
-transition_type="wipe"
-# transition_type="outer"
-# transition_type="random"
-
-wallpaper_engine=$(cat $HOME/.dotfiles/.settings/wallpaper-engine.sh)
-if [ "$wallpaper_engine" == "hyprpaper" ] ;then
-    # hyprpaper
-    echo ":: Using hyprpaper"
-    killall hyprpaper
-    wal_tpl=$(cat $HOME/.dotfiles/.settings/hyprpaper.tpl)
-    output=${wal_tpl//WALLPAPER/$wallpaper}
-    echo "$output" > $HOME/.dotfiles/hypr/hyprpaper.conf
-    hyprpaper &
-else
-    echo ":: Wallpaper Engine disabled"
-fi
-
-if [ "$1" == "init" ] ;then
-    echo ":: Init"
-else
-    sleep 1
-    dunstify "Changing wallpaper ..." "with image $newwall" -h int:value:33 -h string:x-dunst-stack-tag:wallpaper
-    sleep 2
+if [ -f $HOME/.dotfiles/.settings/wallpaper-effect.sh ] ;then
+    effect=$(cat $HOME/.dotfiles/.settings/wallpaper-effect.sh)
+    if [ ! "$effect" == "off" ] ;then
+        used_wallpaper=$generated_versions/$effect-$newwall
+        if [ -f $generated_versions/$effect-$newwall ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ] ;then
+            echo ":: Use cached wallpaper $effect-$newwall"
+        else
+            echo ":: Generate new cached wallpaper $effect-$newwall with effect $effect"
+            if [ "$1" == "init" ] ;then
+                echo ":: Init"
+            else
+                dunstify "Using wallpaper effect $effect..." "with image $newwall" -h int:value:10 -h string:x-dunst-stack-tag:wallpaper
+            fi
+            source $HOME/.dotfiles/hypr/effects/wallpaper/$effect
+        fi
+        echo ":: Loading wallpaper $generated_versions/$effect-$newwall with effect $effect"
+        killall -e hyprpaper & 
+        sleep 1; 
+        wal_tpl=$(cat $HOME/.dotfiles/.settings/hyprpaper.tpl)
+        echo $wal_tpl
+        output=${wal_tpl//WALLPAPER/$used_wallpaper}
+        echo "$output" > $HOME/.dotfiles/hypr/hyprpaper.conf
+        hyprpaper & > /dev/null 2>&1
+    else
+        echo ":: Wallpaper effect is set to off"
+    fi
 fi
 
 # ----------------------------------------------------- 
 # Created blurred wallpaper
 # -----------------------------------------------------
-if [ "$1" == "init" ] ;then
-    echo ":: Init"
+if [ -f $generated_versions/blur-$blur-$newwall.png ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ] ;then
+    echo ":: Use cached wallpaper blur-$blur-$newwall.png"
 else
-    dunstify "Creating blurred version ..." "with image $newwall" -h int:value:66 -h string:x-dunst-stack-tag:wallpaper
+    echo ":: Generate new cached wallpaper blur-$blur-$newwall with blur $blur"
+    if [ "$1" == "init" ] ;then
+        echo ":: Init"
+    else
+        dunstify "Creating blurred version ..." "with image $newwall" -h int:value:50 -h string:x-dunst-stack-tag:wallpaper
+    fi    
+    magick $wallpaper -resize 75% $blurred_wallpaper
+    echo ":: Resized to 75%"
+    if [ ! "$blur" == "0x0" ] ;then
+        magick $blurred_wallpaper -blur $blur $blurred_wallpaper
+        cp $blurred_wallpaper $generated_versions/blur-$blur-$newwall.png
+        echo ":: Blurred"
+    fi
+    cp $generated_versions/blur-$blur-$newwall.png $blurred_wallpaper
 fi
-
-magick $wallpaper -resize 75% $blurred
-echo ":: Resized to 75%"
-if [ ! "$blur" == "0x0" ] ;then
-    magick $blurred -blur $blur $blurred
-    echo ":: Blurred"
-fi
+cp $generated_versions/blur-$blur-$newwall.png $blurred_wallpaper
 
 # ----------------------------------------------------- 
-# Write selected wallpaper into .cache files
-# ----------------------------------------------------- 
-echo "$wallpaper" > "$cache_file"
-echo "* { current-image: url(\"$blurred\", height); }" > "$rasi_file"
-
-# ----------------------------------------------------- 
-# Send notification
-# ----------------------------------------------------- 
-
-if [ "$1" == "init" ] ;then
-    echo ":: Init"
+# Created square wallpaper
+# -----------------------------------------------------
+if [ -f $generated_versions/square-$newwall.png ] && [ "$force_generate" == "0" ] && [ "$use_cache" == "1" ] ;then
+    echo ":: Use cached wallpaper square-$newwall.png"
 else
-    dunstify "Wallpaper procedure complete!" "with image $newwall" -h int:value:100 -h string:x-dunst-stack-tag:wallpaper
+    echo ":: Generate new cached wallpaper square-$newwall"
+    if [ "$1" == "init" ] ;then
+        echo ":: Init"
+    else
+        dunstify "Creating square version ..." "with image $newwall" -h int:value:75 -h string:x-dunst-stack-tag:wallpaper
+    fi
+    magick $wallpaper -gravity Center -extent 1:1 $square_wallpaper
+    cp $square_wallpaper $generated_versions/square-$newwall.png
 fi
-
-echo "DONE!"
+cp $generated_versions/square-$newwall.png $square_wallpaper

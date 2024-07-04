@@ -10,11 +10,13 @@ if [ ! -z $1 ]; then
     echo "Existing dotfiles folder will not be modified."
     echo "Symbolic links will not be created."
 fi
-source .install/colors.sh
-source .install/library.sh
+source .install/includes/colors.sh
+source .install/includes/library.sh
 source .install/required.sh
 source .install/confirm-start.sh
+source .install/paralleldownloads.sh
 source .install/yay.sh
+source .install/updatesystem.sh
 source .install/backup.sh
 source .install/preparation.sh
 source .install/installer.sh
