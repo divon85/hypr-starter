@@ -14,8 +14,9 @@ export EDITOR=nvim
 # -----------------------------------------------------
 
 alias c='clear'
-alias nf='neofetch'
-alias pf='pfetch'
+alias nf='fastfetch'
+alias pf='fastfetch'
+alias ff='fastfetch'
 alias ls='eza -a --icons'
 alias ll='eza -al --icons'
 alias lt='eza -a --tree --level=1 --icons'
@@ -23,9 +24,7 @@ alias shutdown='systemctl poweroff'
 alias v='$EDITOR'
 alias vim='$EDITOR'
 alias ts='~/.dotfiles/scripts/snapshot.sh'
-alias matrix='cmatrix'
 alias wifi='nmtui'
-alias od='~/private/onedrive.sh'
 alias rw='~/.dotfiles/waybar/reload.sh'
 alias winclass="xprop | grep 'CLASS'"
 alias dot="cd ~/.dotfiles"
@@ -66,13 +65,6 @@ alias confb='$EDITOR ~/.dotfiles/.bashrc'
 export PATH="$HOME/.config/emacs/bin:$PATH"
 
 # -----------------------------------------------------
-# SYSTEM
-# -----------------------------------------------------
-
-alias update-grub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
-alias setkb='setxkbmap jp;echo "Keyboard set back to jp."'
-
-# -----------------------------------------------------
 # DEVELOPMENT
 # -----------------------------------------------------
 alias dotsync="~/.dotfiles-versions/dotfiles/.dev/sync.sh dotfiles"
@@ -101,3 +93,10 @@ else
         echo "Start Hyprland with command Hyprland"
     fi
 fi
+
+# Latex
+export PATH="$HOME/.texlive/2024/bin/x86_64-linux:$PATH"
+alias exlatex='pdflatex main.tex'
+
+# Miniconda
+alias phdenv='source ~/.miniconda3/bin/activate && conda activate PhD'

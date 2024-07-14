@@ -24,7 +24,7 @@ fi
 # File and folder names
 # ----------------------------------------------------- 
 force_generate=0
-generated_versions="$HOME/.cache/ml4w-wallpaper-generated"
+generated_versions="$HOME/.cache/wallpaper-generated"
 cache_file="$HOME/.cache/current_wallpaper"
 blurred_wallpaper="$HOME/.cache/blurred_wallpaper.png"
 square_wallpaper="$HOME/.cache/square_wallpaper.png"
@@ -53,6 +53,15 @@ current_wallpaper_filename=$(basename $current_wallpaper)
 echo ":: Current Wallpaper: $current_wallpaper"
 echo ":: Current Wallpaper Filename: $current_wallpaper_filename"
 newwall=$current_wallpaper_filename
+
+# ----------------------------------------------------- 
+# Copy path of current wallpaper to cache file
+# ----------------------------------------------------- 
+if [ ! -f $cache_file ] ;then
+    touch $cache_file
+fi
+echo "$current_wallpaper" > $cache_file
+echo ":: Path of current wallpaper copied to $cache_file"
 
 # ----------------------------------------------------- 
 # Execute pywal

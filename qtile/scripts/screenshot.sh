@@ -1,4 +1,5 @@
 #!/bin/bash
+
 DIR="$HOME/Pictures/screenshots/"
 NAME="screenshot_$(date +%d%m%Y_%H%M%S).png"
 
@@ -8,7 +9,7 @@ option3="Fullscreen (delay 3 sec)"
 
 options="$option2\n$option3\n$option1"
 
-choice=$(echo -e "$options" | rofi -i -dmenu -replace -config ~/dotfiles/rofi/config-screenshot.rasi -width 30 -l 3 -p "Take Screenshot")
+choice=$(echo -e "$options" | rofi -i -dmenu -replace -config ~/.dotfiles/rofi/config-screenshot.rasi -width 30 -l 3 -p "Take Screenshot")
 
 case $choice in
     $option1)

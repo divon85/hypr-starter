@@ -8,7 +8,8 @@ configuration {
     display-run:                "RUN";
     display-filebrowser:        "FILES";
     display-window:             "WINDOW";
-	hover-select:               true;
+	hover-select:               false;
+    scroll-method:              1;
     me-select-entry:            "";
     me-accept-entry:            "MousePrimary";
     drun-display-format:        "{name}";
@@ -17,7 +18,7 @@ configuration {
 }
 
 /* ---- Load font ---- */
-@import "~/.dotfiles/.settings/rofi-font.rasi"
+@import "~/dotfiles/.settings/rofi-font.rasi"
 
 /* ---- Load pywal colors (custom wal template) ---- */
 @import "~/.cache/wal/colors-rofi-pywal"
@@ -26,7 +27,7 @@ configuration {
 @import "~/.cache/current_wallpaper.rasi"
 
 /* ---- Load border width ---- */
-@import "~/.dotfiles/.settings/rofi-border.rasi"
+@import "~/dotfiles/.settings/rofi-border.rasi"
 
 /* ---- Window ---- */
 window {
@@ -138,8 +139,8 @@ listview {
     enabled:                      true;
     columns:                      1;
     lines:                        8;
-    cycle:                        true;
-    dynamic:                      true;
+    cycle:                        false;
+    dynamic:                      false;
     scrollbar:                    false;
     layout:                       vertical;
     reverse:                      false;

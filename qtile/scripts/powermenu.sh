@@ -1,4 +1,5 @@
 #!/bin/bash
+
 echo $XDG_SESSION_TYPE
 lockapp=slock
 echo "Using $lockapp to lock the screen."
@@ -12,7 +13,7 @@ options="$option1\n"
 options="$options$option2\n"
 options="$options$option3\n$option4"
 
-choice=$(echo -e "$options" | rofi -dmenu -replace -config ~/dotfiles/rofi/config-power.rasi -i -no-show-icons -l 4 -width 30 -p "Powermenu") 
+choice=$(echo -e "$options" | rofi -dmenu -replace -config ~/.dotfiles/rofi/config-power.rasi -i -no-show-icons -l 4 -width 30 -p "Powermenu") 
 
 case $choice in
 	$option1)
@@ -24,4 +25,3 @@ case $choice in
 	$option4)
 		systemctl poweroff ;;
 esac
-

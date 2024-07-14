@@ -3,7 +3,7 @@
 # Check for internet connection
 if ping -q -c 1 -W 1 google.com >/dev/null; then
     version=$(cat ~/.dotfiles/.version/version)
-    online=$(curl -s https://github.com/divon85/hypr-starter/-/raw/main/.version/version?ref_type=heads)
+    online=$(curl -s https://raw.githubusercontent.com/divon85/hypr-starter/main/.version/name)
     if [ "$version" -lt "$online" ]; then
         # Update available
         echo "0"

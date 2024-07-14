@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Cache file for holding the current wallpaper
-wallpaper_folder="$HOME/wallpaper"
+wallpaper_folder="$HOME/Pictures/wallpaper"
 if [ -f ~/.dotfiles/.settings/wallpaper-folder.sh ] ;then
     source ~/.dotfiles/.settings/wallpaper-folder.sh
 fi

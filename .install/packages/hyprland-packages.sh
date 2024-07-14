@@ -14,7 +14,6 @@ packagesPacman=(
 packagesYay=(
     "wlogout"
     "nwg-look"
-    "eww"
     "hyprshade"
     "waypaper"
 );
