@@ -1,4 +1,5 @@
 #!/bin/bash
+
 wallpaper_engine=$(cat $HOME/.dotfiles/.settings/wallpaper-engine.sh)
 if [ "$wallpaper_engine" == "swww" ] ;then
     # swww

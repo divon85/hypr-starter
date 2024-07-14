@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+#!/bin/bash
+
+>>>>>>> 6d40215cff44ee01a572cd5979723e87e07b4e9b
 sleep 1
 clear
 figlet "pacman.conf"
