@@ -31,11 +31,6 @@ else
     echo ":: bluetooth.service activated successfully."    
 fi
 
-if [ -d ~/.dotfiles/hypr/settings/ ] ;then
-    rm -rf ~/.dotfiles/hypr/settings
-    echo ":: ~/.dotfiles/hypr/settings removed."
-fi
-
 if [ -f ~/.dotfiles/.settings/eww-monitor.sh ] ;then
     if grep -q "echo" $HOME/.dotfiles/.settings/eww-monitor.sh ; then
        rm ~/.dotfiles/.settings/eww-monitor.sh
