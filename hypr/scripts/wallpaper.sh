@@ -53,6 +53,7 @@ current_wallpaper_filename=$(basename $current_wallpaper)
 echo ":: Current Wallpaper: $current_wallpaper"
 echo ":: Current Wallpaper Filename: $current_wallpaper_filename"
 newwall=$current_wallpaper_filename
+echo "* { current-image: url(\"$HOME/Pictures/wallpaper/$newwall\", height); }" > "$rasi_file"
 
 # ----------------------------------------------------- 
 # Copy path of current wallpaper to cache file
